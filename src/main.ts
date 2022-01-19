@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import Router from "./router";
 
-impport('bulma/css/bulma.css');
+import('bulma/css/bulma.css');
 
 import App from './App.vue'
 
