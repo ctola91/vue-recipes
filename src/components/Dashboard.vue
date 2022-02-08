@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column">
         <div class="panel">
-          <h2 class="panel-heading">Actions</h2>
+          <h2 class="panel-heading">Recipes</h2>
           <div class="panel-block">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione,

@@ -11,10 +11,12 @@
 
       <a
         role="button"
+        :class="{ 'is-active': isActive }"
         class="navbar-burger"
         aria-label="menu"
         aria-expanded="false"
         data-target="navbarBasicExample"
+        @click="toggleMenu"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -22,7 +24,11 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div
+      id="navbarBasicExample"
+      class="navbar-menu"
+      :class="{ 'is-active': isActive }"
+    >
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">
@@ -51,9 +57,16 @@ import { defineComponent, ref } from "vue";
 export default defineComponent({
   setup() {
     const isLoggedin = ref(localStorage.getItem("token") !== null);
+    const isActive = ref(false);
+
+    const toggleMenu = () => {
+      isActive.value = !isActive.value;
+    };
 
     return {
       isLoggedin,
+      isActive,
+      toggleMenu,
     };
   },
 });
