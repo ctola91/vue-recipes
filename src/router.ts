@@ -1,10 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import AuthService from './services/AuthService';
+import component from './env';
 
 const Home = () => import('./components/Home.vue');
 const Login = () => import('./components/Login.vue');
 const Signup = () => import('./components/Signup.vue');
 const Dashboard = () => import('./components/Dashboard.vue');
+const RecipeForm = () => import('./components/RecipeForm.vue');
 
 const beforeEnter = (_to: any, _from: any, next: any) => {
     AuthService.isLoggedIn(() => next(), () => next({ name: 'Login' }));
@@ -35,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/signup',
         name: 'Signup',
         component: Signup,
+    },
+    {
+        path: '/recipes/new',
+        name: 'RecipeForm',
+        component: RecipeForm
     }
 ];
 

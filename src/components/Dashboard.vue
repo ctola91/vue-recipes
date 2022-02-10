@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column">
         <div class="panel">
-          <h2 class="panel-heading">Recipes</h2>
+          <h2 class="panel-heading">My Recipes</h2>
           <div class="panel-block">
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione,
@@ -14,19 +14,9 @@
             </p>
           </div>
         </div>
-      </div>
-      <div class="column">
-        <div class="panel">
-          <h2 class="panel-heading">Primary</h2>
-          <div class="panel-block">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione,
-              nisi nesciunt? At sequi minus ab tenetur nostrum. Fuga sequi optio
-              numquam alias magnam porro, repellendus excepturi. Pariatur
-              voluptate doloribus minus.
-            </p>
+          <div class="">
+            <router-link to="/recipes/new"  class="button is-medium is-primary is-rounded is-fullwidth">Add new</router-link>
           </div>
-        </div>
       </div>
     </div>
   </div>
