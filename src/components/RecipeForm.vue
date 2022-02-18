@@ -1,29 +1,81 @@
 <template>
-  <div>
+  <form @submit.prevent="handleSubmit">
     <h1>Add a new Recipe</h1>
-    <input type="text" v-model="name" />
-    <button>Aceptar</button>
-  </div>
+    <div class="field">
+      <label class="label">Title:</label>
+      <input class="input" type="text" v-model="title" />
+      <span>{{ errors.title }}</span>
+    </div>
+    <div class="field">
+      <label class="label">Description:</label>
+      <textarea class="textarea" v-model="description"></textarea>
+      <span>{{ errors.description }}</span>
+    </div>
+    <div class="field">
+      <label class="label">Ingredients:</label>
+      <input
+        class="input"
+        type="text"
+        v-model="ingredientsField"
+        placeholder="Add new ingredients"
+        @keyup.enter.preventDefault="addNewIngredient"
+      />
+    </div>
+    <ul>
+      <li v-for="ingredient of ingredients">{{ ingredient }}</li>
+    </ul>
+    <div class="field">
+      <label class="label">Instructions:</label>
+      <textarea class="textarea" v-model="instructions"></textarea>
+      <span>{{ errors.instructions }}</span>
+    </div>
+    <input type="submit" value="Aceptar" />
+  </form>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import { useField } from "vee-validate";
+import { defineComponent, ref, Ref } from "vue";
+import { useField, useForm } from "vee-validate";
+import * as yup from "yup";
 
 export default defineComponent({
   setup() {
-    const isRequired = (name: string) => {
-      if (name && name.trim()) {
-        return true;
-      }
+    const validationSchema = yup.object({
+      title: yup.string().required(),
+      description: yup.string().required(),
+      instructions: yup.string().required(),
+    });
 
-      return "This is required";
+    const ingredientsField: Ref<string> = ref("");
+    const ingredients: Ref<string[]> = ref([]);
+
+    const { errors, handleSubmit } = useForm({
+      validationSchema,
+    });
+
+    const { value: title } = useField("title");
+    const { value: description } = useField("description");
+    const { value: instructions } = useField("instructions");
+
+    const addNewIngredient = () => {
+      ingredients.value.push(ingredientsField.value);
+      ingredientsField.value = "";
     };
 
-    const { errorMessage, name } = useField("name", isRequired);
+    const onSubmit = handleSubmit((values) => {
+      if(meta.value.valid) {
+        console.log(title, description, instructions, ingredients.value);
+      }
+    });
 
     return {
-      errorMessage,
-      name,
+      ingredientsField,
+      ingredients,
+      errors,
+      title,
+      description,
+      instructions,
+      addNewIngredient,
+      handleSubmit,
     };
   },
 });

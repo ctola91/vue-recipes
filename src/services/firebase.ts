@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
+import { initializeApp, FirebaseApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID, MEASUREMENT_ID } from '../utils/constants';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -18,7 +18,15 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+let app: any = undefined;
+let analytics = null;
 
-export default app;
+const getInstance = () => {
+    if (!app) {
+        app = initializeApp(firebaseConfig);
+        analytics = getAnalytics(app);
+    }
+    return app
+}
+
+export default getInstance();

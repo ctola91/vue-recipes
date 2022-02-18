@@ -22,12 +22,12 @@ const routes: Array<RouteRecordRaw> = [
         component: Home,
         beforeEnter
     },
-    {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-        beforeEnter
-    },
+    // {
+    //     path: '/dashboard',
+    //     name: 'Dashboard',
+    //     component: Dashboard,
+    //     beforeEnter
+    // },
     {
         path: '/login',
         name: 'Login',
@@ -41,7 +41,8 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/recipes/new',
         name: 'RecipeForm',
-        component: RecipeForm
+        component: RecipeForm,
+        beforeEnter
     }
 ];
 
