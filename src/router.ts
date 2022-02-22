@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import AuthService from './services/AuthService';
-import component from './env';
 
 const Home = () => import('./components/Home.vue');
 const Login = () => import('./components/Login.vue');

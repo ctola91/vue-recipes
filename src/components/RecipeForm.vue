@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="onSubmit">
     <h1>Add a new Recipe</h1>
     <div class="field">
       <label class="label">Title:</label>
@@ -18,7 +18,7 @@
         type="text"
         v-model="ingredientsField"
         placeholder="Add new ingredients"
-        @keyup.enter.preventDefault="addNewIngredient"
+        @keyup.enter.prevent="addNewIngredient"
       />
     </div>
     <ul>
@@ -36,6 +36,7 @@
 import { defineComponent, ref, Ref } from "vue";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
+import RecipeService from "../services/RecipeService";
 
 export default defineComponent({
   setup() {
@@ -48,7 +49,7 @@ export default defineComponent({
     const ingredientsField: Ref<string> = ref("");
     const ingredients: Ref<string[]> = ref([]);
 
-    const { errors, handleSubmit } = useForm({
+    const { errors, handleSubmit, resetForm } = useForm({
       validationSchema,
     });
 
@@ -62,9 +63,18 @@ export default defineComponent({
     };
 
     const onSubmit = handleSubmit((values) => {
-      if(meta.value.valid) {
-        console.log(title, description, instructions, ingredients.value);
-      }
+      console.log(JSON.stringify(values, null, 2));
+      RecipeService.addNewRecipe({
+        id: "",
+        title: <string>values.title,
+        description: <string>values.description,
+        ingredients: ingredients.value,
+        instructions: <string>values.instructions,
+        images: []
+      });
+      ingredientsField.value = "";
+      ingredients.value = [];
+      resetForm();
     });
 
     return {
@@ -75,7 +85,7 @@ export default defineComponent({
       description,
       instructions,
       addNewIngredient,
-      handleSubmit,
+      onSubmit,
     };
   },
 });

@@ -1,3 +1,4 @@
+import { DefineComponent, defineComponent } from 'vue';
 <template>
   <div class="home">
     <div class="tabs is-fullwidth">
@@ -14,4 +15,10 @@
     </div>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script>
+export default defineComponent({
+  setup() {
+    return {};
+  },
+});
+</script>
