@@ -8,12 +8,12 @@ import { DefineComponent, defineComponent } from 'vue';
       </ul>
     </div>
     <div class="container">
-      <div class="title-container">
+      <div class="title-container p-1">
         <h1 class="title">What are we cooking?</h1>
       </div>
-      <div v-if="recipes.length > 0">
-        <ul>
-          <li v-for="recipe in recipes" @key="recipe.id">
+      <div v-if="recipes.length > 0" class="p-1">
+        <ul class="columns is-flex is-flex-wrap-wrap justify-center">
+          <li v-for="recipe in recipes" :key="recipe.id" class="column is-one-third">
             <a href="#">
               <div class="card">
                 <div class="card-image">
