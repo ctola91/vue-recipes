@@ -6,6 +6,7 @@ const Login = () => import('./components/Login.vue');
 const Signup = () => import('./components/Signup.vue');
 const Dashboard = () => import('./components/Dashboard.vue');
 const RecipeForm = () => import('./components/RecipeForm.vue');
+const Recipe = () => import('./components/Recipe.vue');
 
 const beforeEnter = (_to: any, _from: any, next: any) => {
     AuthService.isLoggedIn(() => next(), () => next({ name: 'Login' }));
@@ -36,6 +37,12 @@ const routes: Array<RouteRecordRaw> = [
         path: '/signup',
         name: 'Signup',
         component: Signup,
+    },
+    {
+        path: '/recipes/:id',
+        name: 'Recipe',
+        component: Recipe,
+        beforeEnter
     },
     {
         path: '/recipes/new',

@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
+      <router-link class="navbar-item" to="/">
         <img
           src="https://bulma.io/images/bulma-logo.png"
           width="112"
           height="28"
         />
-      </a>
+      </router-link>
 
       <a
         role="button"
@@ -29,6 +29,11 @@
       class="navbar-menu"
       :class="{ 'is-active': isActive }"
     >
+      <div class="navbar-start">
+        <router-link to="/" class="navbar-item">
+          Home
+        </router-link>
+      </div>
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">

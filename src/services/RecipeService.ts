@@ -1,6 +1,6 @@
 import firebaseApp from './firebase';
 
-import { collection, addDoc, getFirestore, getDocs } from 'firebase/firestore';
+import { collection, addDoc, getFirestore, getDocs, doc, getDoc } from 'firebase/firestore';
 import { Recipe } from '../types/RecipeType';
 
 const db = getFirestore(firebaseApp);
@@ -43,7 +43,25 @@ const getRecipes = async () => {
     }
 }
 
+const getRecipe = async (id) => {
+    try {
+        const ref = doc(db, 'recipes', id);
+        const docSnap = await getDoc(ref);
+        
+        if(docSnap.exists()) {
+            console.log("Document data:", docSnap.data());
+            return {id, ...docSnap.data()}
+        }
+        else {
+            throw Error("There is no document")
+        }
+    } catch(e) {
+        console.error(e);
+    }
+}
+
 export default {
     addNewRecipe,
-    getRecipes
+    getRecipes,
+    getRecipe,
 }

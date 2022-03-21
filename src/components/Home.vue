@@ -12,9 +12,13 @@ import { DefineComponent, defineComponent } from 'vue';
         <h1 class="title">What are we cooking?</h1>
       </div>
       <div v-if="recipes.length > 0" class="p-1">
-        <ul class="columns is-flex is-flex-wrap-wrap justify-center">
-          <li v-for="recipe in recipes" :key="recipe.id" class="column is-one-third">
-            <a href="#">
+        <ul class="is-flex is-flex-wrap-wrap justify-center recipe-container">
+          <li
+            v-for="recipe in recipes"
+            :key="recipe.id"
+            class="recipe is-one-third"
+          >
+            <router-link :to="`/recipes/${recipe.id}`">
               <div class="card">
                 <div class="card-image">
                   <figure class="image is-4by3">
@@ -28,12 +32,12 @@ import { DefineComponent, defineComponent } from 'vue';
                   <div class="media">
                     <div class="media-content">
                       <p class="title is-4">{{ recipe.title }}</p>
-                      <p class="subtitle is-6">{{ recipe.description }}</p>
+                      <p class="">{{ recipe.description }}</p>
                     </div>
                   </div>
                 </div>
               </div>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
@@ -60,3 +64,17 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+.recipe-container {
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+.recipe {
+  width: 30%;
+}
+@media screen and (max-width: 768px) {
+  .recipe {
+    width: 100%;
+  }
+}
+</style>
