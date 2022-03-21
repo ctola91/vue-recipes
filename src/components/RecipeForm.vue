@@ -7,6 +7,10 @@
       <span>{{ errors.title }}</span>
     </div>
     <div class="field">
+      <label class="label"> Image: </label>
+      <input class="input" type="file" />
+    </div>
+    <div class="field">
       <label class="label">Description:</label>
       <textarea class="textarea" v-model="description"></textarea>
       <span>{{ errors.description }}</span>
@@ -70,7 +74,7 @@ export default defineComponent({
         description: <string>values.description,
         ingredients: ingredients.value,
         instructions: <string>values.instructions,
-        images: []
+        images: [],
       });
       ingredientsField.value = "";
       ingredients.value = [];

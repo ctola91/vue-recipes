@@ -5,7 +5,8 @@ const storage = getStorage(firebaseApp);
 
 const uploadImage = async (file: File, name: string) => {
     try {
-        const imageRef = ref(storage, `images/${name}.jpg`);
+        console.log(file.name);
+        const imageRef = ref(storage, `images/${name}`);
         const snapshot = await uploadBytes(imageRef, file);
         if (!snapshot) {
             throw new Error('Image was not found');

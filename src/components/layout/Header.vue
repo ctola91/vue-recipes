@@ -33,6 +33,9 @@
         <router-link to="/" class="navbar-item">
           Home
         </router-link>
+        <router-link to="/recipes/new" class="navbar-item">
+          Add new recipe
+        </router-link>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
