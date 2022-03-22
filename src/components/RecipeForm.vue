@@ -8,7 +8,11 @@
     </div>
     <div class="field">
       <label class="label"> Image: </label>
-      <input class="input" type="file" />
+      <FileUploader
+        :onFileSelectError="onFileSelectError"
+        :onFileSelectSuccess="onFileSelectSuccess"
+        classes="button"
+      />
     </div>
     <div class="field">
       <label class="label">Description:</label>
@@ -33,16 +37,19 @@
       <textarea class="textarea" v-model="instructions"></textarea>
       <span>{{ errors.instructions }}</span>
     </div>
-    <input type="submit" value="Aceptar" />
+    <input type="submit" value="Aceptar" class="button is-primary" />
   </form>
 </template>
 <script lang="ts">
 import { defineComponent, ref, Ref } from "vue";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
+
+import FileUploader from "./shared/FileUploader.vue";
 import RecipeService from "../services/RecipeService";
 
 export default defineComponent({
+  components: { FileUploader },
   setup() {
     const validationSchema = yup.object({
       title: yup.string().required(),
@@ -52,6 +59,7 @@ export default defineComponent({
 
     const ingredientsField: Ref<string> = ref("");
     const ingredients: Ref<string[]> = ref([]);
+    const image = ref(null);
 
     const { errors, handleSubmit, resetForm } = useForm({
       validationSchema,
@@ -90,6 +98,11 @@ export default defineComponent({
       instructions,
       addNewIngredient,
       onSubmit,
+      image,
+      onFileSelectError: (error) => console.log(error),
+      onFileSelectSuccess: (file) => {
+        image.value = file;
+      },
     };
   },
 });
