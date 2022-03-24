@@ -30,12 +30,10 @@
       :class="{ 'is-active': isActive }"
     >
       <div class="navbar-start">
-        <router-link to="/" class="navbar-item">
-          Home
-        </router-link>
-        <router-link to="/recipes/new" class="navbar-item">
+        <a @click="goTo('/')" class="navbar-item"> Home </a>
+        <a @click="goTo('/recipes/new')" class="navbar-item">
           Add new recipe
-        </router-link>
+        </a>
       </div>
       <div class="navbar-end">
         <div class="navbar-item">
@@ -46,10 +44,10 @@
               </a>
             </template>
             <template v-else>
-              <router-link to="/signup" class="button is-primary">
+              <a @click="goTo('/signup')" class="button is-primary">
                 <strong>Sign up</strong>
-              </router-link>
-              <router-link to="/login" class="button is-light">
+              </a>
+              <router-link @click="goTo('/login')" class="button is-light">
                 Log in
               </router-link>
             </template>
@@ -61,11 +59,18 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
     const isLoggedin = ref(localStorage.getItem("token") !== null);
     const isActive = ref(false);
+    const router = useRouter();
+
+    const goTo = (path: string) => {
+      router.push(path);
+      isActive.value = false;
+    };
 
     const toggleMenu = () => {
       isActive.value = !isActive.value;
@@ -75,6 +80,7 @@ export default defineComponent({
       isLoggedin,
       isActive,
       toggleMenu,
+      goTo,
     };
   },
 });

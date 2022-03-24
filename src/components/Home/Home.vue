@@ -1,4 +1,3 @@
-import { DefineComponent, defineComponent } from 'vue';
 <template>
   <div class="home">
     <div class="tabs is-fullwidth">
@@ -40,11 +39,9 @@ export default defineComponent({
 
     onMounted(async () => {
       recipes.value = await RecipeService.getRecipes();
-      console.log(recipes.value);
     });
 
     const formatURLImage = async (name: string) => {
-      console.log(name);
       const image = await ImageService.getURLImage(name);
       return image;
     };

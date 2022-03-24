@@ -8,7 +8,6 @@ const db = getFirestore(firebaseApp);
 
 const addNewRecipe = async ({ title, description, ingredients, instructions, images }: Recipe) => {
     try {
-        console.log(images);
         const fileName = await ImageService.uploadImage(images[0], title.split(" ").join("-"));
         const docRef = await addDoc(collection(db, 'recipes'), {
             title,
@@ -17,19 +16,17 @@ const addNewRecipe = async ({ title, description, ingredients, instructions, ima
             instructions,
             images: [fileName]
         });
-        console.log("Document written with ID", docRef.id);
     } catch (e) {
         console.error("Error adding document: ", e);
     }
 }
 
-const getRecipes = async () => {
+const getRecipes : Array<Recipe> = async () => {
     try {
         const querySnapshot = await getDocs(collection(db, 'recipes'));
         let result: Array<Recipe> = [];
         querySnapshot.forEach(doc => {
             let recipeDoc = doc.data();
-            console.table(recipeDoc.title);
             result.push({
                 id: <string>doc.id,
                 title: <string>recipeDoc.title,
@@ -39,21 +36,20 @@ const getRecipes = async () => {
                 images: recipeDoc.images
             });
         });
-        // console.log(result);
         return result;
     } catch (e) {
         console.error('Error reading documents');
     }
 }
 
-const getRecipe = async (id) => {
+const getRecipe : Recipe = async (id) => {
     try {
+        let result : Recipe = null;
         const ref = doc(db, 'recipes', id);
         const docSnap = await getDoc(ref);
         
         if(docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            return {id, ...docSnap.data()}
+            return result = {id, ...docSnap.data()}
         }
         else {
             throw Error("There is no document")
