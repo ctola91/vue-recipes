@@ -13,32 +13,12 @@ import { DefineComponent, defineComponent } from 'vue';
       </div>
       <div v-if="recipes.length > 0" class="p-1">
         <ul class="is-flex is-flex-wrap-wrap justify-center recipe-container">
-          <li
+          <RecipeItem
             v-for="recipe in recipes"
             :key="recipe.id"
             class="recipe is-one-third"
-          >
-            <router-link :to="`/recipes/${recipe.id}`">
-              <div class="card">
-                <div class="card-image">
-                  <figure class="image is-4by3">
-                    <img
-                      :src="recipe.images.length > 0 ? formatURLImage(recipe.images[0]) : 'https://bulma.io/images/placeholders/1280x960.png'"
-                      alt="Placeholder image"
-                    />
-                  </figure>
-                </div>
-                <div class="card-content">
-                  <div class="media">
-                    <div class="media-content">
-                      <p class="title is-4">{{ recipe.title }}</p>
-                      <p class="">{{ recipe.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </router-link>
-          </li>
+            :recipe="recipe"
+          />
         </ul>
       </div>
       <div v-else>There are no recipes assigned</div>
@@ -47,11 +27,14 @@ import { DefineComponent, defineComponent } from 'vue';
 </template>
 <script lang="ts">
 import { ref, Ref, defineComponent, computed, onMounted } from "vue";
-import RecipeService from "../services/RecipeService";
-import { Recipe } from "../types/RecipeType";
-import ImageService from '../services/ImageService';
+import RecipeService from "../../services/RecipeService";
+import { Recipe } from "../../types/RecipeType";
+import ImageService from "../../services/ImageService";
+
+import RecipeItem from "./RecipeItem.vue";
 
 export default defineComponent({
+  components: { RecipeItem },
   setup() {
     const recipes: Ref<Recipe[]> = ref([]);
 
@@ -61,7 +44,9 @@ export default defineComponent({
     });
 
     const formatURLImage = async (name: string) => {
-      return ImageService.getURLImage(name);
+      console.log(name);
+      const image = await ImageService.getURLImage(name);
+      return image;
     };
 
     return {

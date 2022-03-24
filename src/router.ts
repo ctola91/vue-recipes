@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import AuthService from './services/AuthService';
 
-const Home = () => import('./components/Home.vue');
+const Home = () => import('./components/Home/Home.vue');
 const Login = () => import('./components/Login.vue');
 const Signup = () => import('./components/Signup.vue');
 const Dashboard = () => import('./components/Dashboard.vue');

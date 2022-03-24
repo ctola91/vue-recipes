@@ -22,6 +22,7 @@ const uploadImage = async (file: File, title: string) => {
 const getURLImage = async (name: string) => {
     const pathRef = ref(storage, `images/${name.split(' ').join('-')}`);
     const url = await getDownloadURL(pathRef);
+    console.log(url);
     if (!url) {
         throw new Error('image not found');
     }
