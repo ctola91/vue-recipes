@@ -75,14 +75,14 @@ export default defineComponent({
     };
 
     const onSubmit = handleSubmit((values) => {
-      console.log(JSON.stringify(values, null, 2));
+      console.log(image.value);
       RecipeService.addNewRecipe({
         id: "",
         title: <string>values.title,
         description: <string>values.description,
         ingredients: ingredients.value,
         instructions: <string>values.instructions,
-        images: [],
+        images: [image.value.file],
       });
       ingredientsField.value = "";
       ingredients.value = [];

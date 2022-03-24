@@ -23,7 +23,7 @@ import { DefineComponent, defineComponent } from 'vue';
                 <div class="card-image">
                   <figure class="image is-4by3">
                     <img
-                      src="https://bulma.io/images/placeholders/1280x960.png"
+                      :src="recipe.images.length > 0 ? formatURLImage(recipe.images[0]) : 'https://bulma.io/images/placeholders/1280x960.png'"
                       alt="Placeholder image"
                     />
                   </figure>
@@ -49,6 +49,7 @@ import { DefineComponent, defineComponent } from 'vue';
 import { ref, Ref, defineComponent, computed, onMounted } from "vue";
 import RecipeService from "../services/RecipeService";
 import { Recipe } from "../types/RecipeType";
+import ImageService from '../services/ImageService';
 
 export default defineComponent({
   setup() {
@@ -56,10 +57,16 @@ export default defineComponent({
 
     onMounted(async () => {
       recipes.value = await RecipeService.getRecipes();
+      console.log(recipes.value);
     });
+
+    const formatURLImage = async (name: string) => {
+      return ImageService.getURLImage(name);
+    };
 
     return {
       recipes,
+      formatURLImage,
     };
   },
 });

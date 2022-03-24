@@ -2,17 +2,20 @@ import firebaseApp from './firebase';
 
 import { collection, addDoc, getFirestore, getDocs, doc, getDoc } from 'firebase/firestore';
 import { Recipe } from '../types/RecipeType';
+import ImageService from './ImageService';
 
 const db = getFirestore(firebaseApp);
 
 const addNewRecipe = async ({ title, description, ingredients, instructions, images }: Recipe) => {
     try {
+        console.log(images);
+        const fileName = await ImageService.uploadImage(images[0], title.split(" ").join("-"));
         const docRef = await addDoc(collection(db, 'recipes'), {
             title,
             description,
             ingredients,
             instructions,
-            images
+            images: [fileName]
         });
         console.log("Document written with ID", docRef.id);
     } catch (e) {
@@ -33,10 +36,10 @@ const getRecipes = async () => {
                 description: <string>recipeDoc.description,
                 ingredients: <Array<string>>recipeDoc.ingredients,
                 instructions: <string>recipeDoc.instructions,
-                images: []
+                images: recipeDoc.images
             });
         });
-        console.log(result);
+        // console.log(result);
         return result;
     } catch (e) {
         console.error('Error reading documents');

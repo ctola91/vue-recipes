@@ -8,8 +8,9 @@
     >
       Submit Image
     </button>
-    <div v-if="url">
-        <img :src="url" />
+    <div v-if="url" class="preview-image">
+      <button @click="clearButton">Clear</button>
+      <img :src="url" />
     </div>
   </div>
 </template>
@@ -27,6 +28,7 @@ const url = ref("");
 const handleFileInput = (e) => {
   console.log(e);
   const file = e.target.files[0];
+  console.log(file.name);
   if (fileInput.value.size > 1024) {
     props.onFileSelectError({ error: "File size cannot exceed more that 1MB" });
   } else {
@@ -38,4 +40,14 @@ const handleFileInput = (e) => {
 const uploadImage = () => {
   fileInput.value && fileInput.value.click();
 };
+
+const clearButton = () => {
+  fileInput.value.value = "";
+  url.value = "";
+};
 </script>
+<style>
+.preview-image {
+  width: 200px;
+}
+</style>
