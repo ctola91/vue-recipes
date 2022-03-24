@@ -39,7 +39,7 @@
         <div class="navbar-item">
           <div class="buttons">
             <template v-if="isLoggedin">
-              <a class="button is-primary">
+              <a class="button is-primary" @click="goTo('/', false)">
                 <strong>Logout</strong>
               </a>
             </template>
@@ -47,9 +47,9 @@
               <a @click="goTo('/signup')" class="button is-primary">
                 <strong>Sign up</strong>
               </a>
-              <router-link @click="goTo('/login')" class="button is-light">
+              <a @click="goTo('/login')" class="button is-light">
                 Log in
-              </router-link>
+              </a>
             </template>
           </div>
         </div>
@@ -59,6 +59,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import AuthService from "../../services/AuthService";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -67,9 +68,14 @@ export default defineComponent({
     const isActive = ref(false);
     const router = useRouter();
 
-    const goTo = (path: string) => {
-      router.push(path);
+    const goTo = (path: string, isLogged: boolean = true) => {
       isActive.value = false;
+      if (isLogged) {
+        router.push(path);
+      } else {
+        AuthService.logout();
+        router.push({ name: "Login" });
+      }
     };
 
     const toggleMenu = () => {

@@ -28,6 +28,17 @@ const signup = async (email: string, password: string) => {
     }
 }
 
+const logout = async () => {
+    try {
+        await signOut(auth);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    } catch(e) {
+        console.log(e);
+    }
+
+}
+
 const isLoggedIn = (validFunc: Function, errorFunc: Function) => {
     onAuthStateChanged(auth, user => {
         if (user) {
@@ -43,5 +54,6 @@ const isLoggedIn = (validFunc: Function, errorFunc: Function) => {
 export default {
     login,
     signup,
-    isLoggedIn
+    isLoggedIn,
+    logout
 }
