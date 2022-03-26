@@ -1,6 +1,6 @@
 <template>
-  <li class="recipe is-one-third">
-    <router-link :to="`/recipes/${recipe.id}`">
+  <li class="is-one-third">
+    <router-link :to="`/recipes/${recipe.id}`" class="recipe">
       <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
@@ -42,3 +42,13 @@ onMounted(async () => {
   }
 });
 </script>
+<style>
+a.recipe  {
+  transition: all 0.2s ease-in;
+}
+a.recipe:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 20%);
+  /* z-index: 99999; */
+}
+</style>
