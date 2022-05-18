@@ -70,7 +70,7 @@ export default defineComponent({
 
     const goTo = (path: string, isLogged: boolean = true) => {
       isActive.value = false;
-      if (isLogged) {
+      if (isLoggedin) {
         router.push(path);
       } else {
         AuthService.logout();

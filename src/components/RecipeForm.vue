@@ -42,6 +42,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, Ref } from "vue";
+import { useRouter } from "vue-router";
 import { useField, useForm } from "vee-validate";
 import * as yup from "yup";
 
@@ -56,6 +57,8 @@ export default defineComponent({
       description: yup.string().required(),
       instructions: yup.string().required(),
     });
+
+    const router = useRouter();
 
     const ingredientsField: Ref<string> = ref("");
     const ingredients: Ref<string[]> = ref([]);
@@ -74,9 +77,9 @@ export default defineComponent({
       ingredientsField.value = "";
     };
 
-    const onSubmit = handleSubmit((values) => {
+    const onSubmit = handleSubmit(async (values) => {
       console.log(image.value);
-      RecipeService.addNewRecipe({
+      const recipeId = await RecipeService.addNewRecipe({
         id: "",
         title: <string>values.title,
         description: <string>values.description,
@@ -84,6 +87,7 @@ export default defineComponent({
         instructions: <string>values.instructions,
         images: [image.value.file],
       });
+      router.push("/");
       ingredientsField.value = "";
       ingredients.value = [];
       resetForm();

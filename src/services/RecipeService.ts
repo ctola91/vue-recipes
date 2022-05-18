@@ -16,6 +16,7 @@ const addNewRecipe = async ({ title, description, ingredients, instructions, ima
             instructions,
             images: [fileName]
         });
+        return docRef.id;
     } catch (e) {
         console.error("Error adding document: ", e);
     }

@@ -20,7 +20,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/',
         name: 'Home',
         component: Home,
-        beforeEnter
     },
     // {
     //     path: '/dashboard',
@@ -42,7 +41,6 @@ const routes: Array<RouteRecordRaw> = [
         path: '/recipes/:id',
         name: 'Recipe',
         component: Recipe,
-        beforeEnter
     },
     {
         path: '/recipes/new',

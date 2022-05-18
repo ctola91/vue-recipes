@@ -52,7 +52,6 @@ export default defineComponent({
     const password = ref<string>("");
 
     const handleOnSubmit = () => {
-      console.log(username.value, password.value);
       loginUser(username.value, password.value);
       username.value = "";
       password.value = "";
