@@ -13,3 +13,8 @@ import Header from "./components/layout/Header.vue";
 import Footer from "./components/layout/Footer.vue";
 import Content from "./components/layout/Content.vue";
 </script>
+<style>
+.container {
+  padding: 0 20px 20px;
+}
+</style>

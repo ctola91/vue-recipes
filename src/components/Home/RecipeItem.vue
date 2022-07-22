@@ -4,17 +4,14 @@
       <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img
-              :src="image"
-              alt="Placeholder image"
-            />
+            <img :src="image" alt="Placeholder image" />
           </figure>
         </div>
         <div class="card-content">
           <div class="media">
             <div class="media-content">
               <p class="title is-4">{{ recipe.title }}</p>
-              <p class="">{{ recipe.description }}</p>
+              <p class="desc-truncate">{{ recipe.description }}</p>
             </div>
           </div>
         </div>
@@ -38,17 +35,33 @@ onMounted(async () => {
   if (props.recipe && props.recipe.images.length > 0) {
     image.value = await ImageService.getURLImage(props.recipe.images[0]);
   } else {
-      image.value = 'https://bulma.io/images/placeholders/1280x960.png';
+    image.value = "https://bulma.io/images/placeholders/1280x960.png";
   }
 });
 </script>
 <style>
-a.recipe  {
+a.recipe {
   transition: all 0.2s ease-in;
 }
 a.recipe:hover {
   transform: scale(1.15);
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 3px 6px 0 rgb(0 0 0 / 20%);
   /* z-index: 99999; */
+}
+.card-content {
+  height: 150px;
+  max-height: 150px;
+}
+.title-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.desc-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

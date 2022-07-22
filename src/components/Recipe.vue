@@ -1,16 +1,18 @@
 <template>
   <div class="content">
-    <h1>{{ recipe.title }}</h1>
-    <img :src="image" :alt="recipe.title" />
-    <h2>Description</h2>
+    <h1 class="title">{{ recipe.title }}</h1>
+    <div class="img-container">
+      <img :src="image" :alt="recipe.title" />
+    </div>
+    <h2 class="subtitle">Description</h2>
     <p>{{ recipe.description }}</p>
-    <h2>Ingredients</h2>
+    <h2 class="subtitle">Ingredients</h2>
     <ul>
       <li v-for="ingredient in recipe.ingredients" :key="ingredient">
         {{ ingredient }}
       </li>
     </ul>
-    <h2>Instructions</h2>
+    <h2 class="subtitle">Instructions</h2>
     <p>{{ recipe.instructions }}</p>
   </div>
 </template>
@@ -45,3 +47,10 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+.img-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+</style>
