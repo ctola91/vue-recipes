@@ -103,8 +103,8 @@ export default defineComponent({
       addNewIngredient,
       onSubmit,
       image,
-      onFileSelectError: (error) => console.log(error),
-      onFileSelectSuccess: (file) => {
+      onFileSelectError: (error : any) => console.log(error),
+      onFileSelectSuccess: (file : any) => {
         image.value = file;
       },
     };

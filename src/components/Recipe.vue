@@ -16,24 +16,32 @@
     <p>{{ recipe.instructions }}</p>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { useRoute } from "vue-router";
 import { ref, onMounted, defineComponent } from "vue";
 import RecipeService from "../services/RecipeService";
 import ImageService from "../services/ImageService";
+import { Recipe } from "../types/RecipeType";
 
 export default defineComponent({
   setup() {
     const route = useRoute();
-    const recipe = ref({});
+    const recipe = ref<Recipe>({
+      id: "",
+      title: "",
+      description: "",
+      ingredients: [],
+      instructions: "",
+      images: [],
+    });
     const image = ref("");
     onMounted(async () => {
       await getRecipe(route.params.id);
     });
 
-    const getRecipe = async (id) => {
+    const getRecipe = async (id : string) => {
       recipe.value = await RecipeService.getRecipe(id);
-      if (recipe.value.images.length > 0) {
+      if (recipe !== null && recipe.value.images.length > 0) {
         image.value = await ImageService.getURLImage(recipe.value.images[0]);
       } else {
         image.value = "https://bulma.io/images/placeholders/1280x960.png";
