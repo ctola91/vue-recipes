@@ -8,8 +8,15 @@
     <p>{{ recipe.description }}</p>
     <h2 class="subtitle">Ingredients</h2>
     <ul>
-      <li v-for="ingredient in recipe.ingredients" :key="ingredient">
-        {{ ingredient }}
+      <li
+        class="ingredient-item"
+        v-for="ingredient in recipe.ingredients"
+        :key="ingredient"
+      >
+        <label :for="ingredient">
+          <input :id="ingredient" type="checkbox" :value="ingredient" />
+          {{ ingredient }}
+        </label>
       </li>
     </ul>
     <h2 class="subtitle">Instructions</h2>
@@ -39,7 +46,7 @@ export default defineComponent({
       await getRecipe(route.params.id);
     });
 
-    const getRecipe = async (id : string) => {
+    const getRecipe = async (id: string) => {
       recipe.value = await RecipeService.getRecipe(id);
       if (recipe !== null && recipe.value.images.length > 0) {
         image.value = await ImageService.getURLImage(recipe.value.images[0]);
@@ -60,5 +67,8 @@ export default defineComponent({
   width: 100%;
   display: flex;
   justify-content: center;
+}
+.ingredient-item {
+  list-style: none;
 }
 </style>

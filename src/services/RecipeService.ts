@@ -43,7 +43,7 @@ const getRecipes : Array<Recipe> = async () => {
     }
 }
 
-const getRecipe : Recipe = async (id) => {
+const getRecipe : Recipe = async (id : string) => {
     try {
         let result : Recipe = null;
         const ref = doc(db, 'recipes', id);
