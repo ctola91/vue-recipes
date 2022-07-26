@@ -6,7 +6,7 @@ import ImageService from './ImageService';
 
 const db = getFirestore(firebaseApp);
 
-const addNewRecipe = async ({ title, description, ingredients, instructions, images }: Recipe) => {
+const addNewRecipe = async ({ title, description, ingredients, instructions, images }: Recipe) : Promise<string | undefined> => {
     try {
         const fileName = await ImageService.uploadImage(images[0], title.split(" ").join("-"));
         const docRef = await addDoc(collection(db, 'recipes'), {
@@ -22,7 +22,7 @@ const addNewRecipe = async ({ title, description, ingredients, instructions, ima
     }
 }
 
-const getRecipes : Array<Recipe> = async () => {
+const getRecipes = async () : Promise<Array<Recipe> | undefined> => {
     try {
         const querySnapshot = await getDocs(collection(db, 'recipes'));
         let result: Array<Recipe> = [];
@@ -43,14 +43,15 @@ const getRecipes : Array<Recipe> = async () => {
     }
 }
 
-const getRecipe : Recipe = async (id : string) => {
+const getRecipe = async (id : string) : Promise<Recipe | undefined> => {
     try {
-        let result : Recipe = null;
         const ref = doc(db, 'recipes', id);
         const docSnap = await getDoc(ref);
         
         if(docSnap.exists()) {
-            return result = {id, ...docSnap.data()}
+            const result = <Recipe>{id, ...docSnap.data()}
+            const recipe: Recipe = <Recipe>result;
+            return result;
         }
         else {
             throw Error("There is no document")

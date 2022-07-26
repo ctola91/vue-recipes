@@ -42,14 +42,12 @@ export default defineComponent({
       images: [],
     });
     const image = ref("");
-    onMounted(async () => {
-      await getRecipe(route.params.id);
-    });
+    onMounted(async () => await getRecipe(<string>route.params.id));
 
     const getRecipe = async (id: string) => {
-      recipe.value = await RecipeService.getRecipe(id);
+      recipe.value = await RecipeService.getRecipe(<string>id);
       if (recipe !== null && recipe.value.images.length > 0) {
-        image.value = await ImageService.getURLImage(recipe.value.images[0]);
+        image.value = await ImageService.getURLImage(<string>recipe.value.images[0]);
       } else {
         image.value = "https://bulma.io/images/placeholders/1280x960.png";
       }

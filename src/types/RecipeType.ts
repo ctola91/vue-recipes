@@ -5,4 +5,4 @@ export type Recipe = {
     ingredients: Array<string>,
     instructions: string,
     images: Array<string>
-} | undefined | null
+}

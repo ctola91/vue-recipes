@@ -3,9 +3,9 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
 
 const storage = getStorage(firebaseApp);
 
-const uploadImage: string = async (file: File, title: string) => {
+const uploadImage = async (file: File, title: string) : Promise<string | undefined> => {
     try {
-        const extension : string = file.name.split(".").pop();
+        const extension : string | undefined = file.name.split(".").pop();
         const imageRef = ref(storage, `images/${title}.${extension}`);
         const snapshot = await uploadBytes(imageRef, file);
         if (!snapshot) {
@@ -17,7 +17,7 @@ const uploadImage: string = async (file: File, title: string) => {
     }
 }
 
-const getURLImage : string = async (name: string) => {
+const getURLImage = async (name: string) : Promise<string> => {
     const pathRef = ref(storage, `images/${name.split(' ').join('-')}`);
     const url : string = await getDownloadURL(pathRef);
     if (!url) {

@@ -62,7 +62,7 @@ export default defineComponent({
 
     const ingredientsField: Ref<string> = ref("");
     const ingredients: Ref<string[]> = ref([]);
-    const image = ref(null);
+    const image : Ref<File> = ref(null);
 
     const { errors, handleSubmit, resetForm } = useForm({
       validationSchema,
@@ -85,7 +85,7 @@ export default defineComponent({
         description: <string>values.description,
         ingredients: ingredients.value,
         instructions: <string>values.instructions,
-        images: [image.value.file],
+        images: image !== null && image.value !== null ? [image.value.file] : [],
       });
       router.push("/");
       ingredientsField.value = "";
