@@ -25,7 +25,7 @@
 </template>
 <script lang="ts">
 import { useRoute } from "vue-router";
-import { ref, onMounted, defineComponent } from "vue";
+import { ref, reactive, onMounted, defineComponent } from "vue";
 import RecipeService from "../services/RecipeService";
 import ImageService from "../services/ImageService";
 import { Recipe } from "../types/RecipeType";
@@ -46,7 +46,7 @@ export default defineComponent({
 
     const getRecipe = async (id: string) => {
       recipe.value = await RecipeService.getRecipe(<string>id);
-      if (recipe !== null && recipe.value.images.length > 0) {
+      if (recipe.value !== null && recipe.value !== undefined && recipe.value.images.length > 0) {
         image.value = await ImageService.getURLImage(<string>recipe.value.images[0]);
       } else {
         image.value = "https://bulma.io/images/placeholders/1280x960.png";

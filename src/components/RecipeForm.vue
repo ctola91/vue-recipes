@@ -62,20 +62,24 @@ export default defineComponent({
 
     const ingredientsField: Ref<string> = ref("");
     const ingredients: Ref<string[]> = ref([]);
-    const image : Ref<File> = ref(null);
+    const image = ref<any>();
 
     const { errors, handleSubmit, resetForm } = useForm({
       validationSchema,
     });
 
-    const { value: title } = useField("title");
-    const { value: description } = useField("description");
-    const { value: instructions } = useField("instructions");
+    const { value: title } = useField<string>("title");
+    const { value: description } = useField<string>("description");
+    const { value: instructions } = useField<string>("instructions");
 
     const addNewIngredient = () => {
       ingredients.value.push(ingredientsField.value);
       ingredientsField.value = "";
     };
+
+    const validateImage = (image: any) : boolean => {
+      return image !== null && image.value !== undefined && image.value !== null && image.value.file !== null && image.value.file !== undefined
+    }
 
     const onSubmit = handleSubmit(async (values) => {
       console.log(image.value);
@@ -85,7 +89,7 @@ export default defineComponent({
         description: <string>values.description,
         ingredients: ingredients.value,
         instructions: <string>values.instructions,
-        images: image !== null && image.value !== null ? [image.value.file] : [],
+        images: validateImage(image) ? [<string>image.value.file] : [],
       });
       router.push("/");
       ingredientsField.value = "";

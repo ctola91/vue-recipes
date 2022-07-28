@@ -10,7 +10,7 @@
       <div class="title-container p-1">
         <h1 class="title">What are we cooking?</h1>
       </div>
-      <div v-if="recipes.length > 0" class="p-1">
+      <div v-if="recipes !== undefined && recipes.length > 0" class="p-1">
         <ul class="is-flex is-flex-wrap-wrap justify-center recipe-container">
           <RecipeItem
             v-for="recipe in recipes"
@@ -35,7 +35,7 @@ import RecipeItem from "./RecipeItem.vue";
 export default defineComponent({
   components: { RecipeItem },
   setup() {
-    const recipes: Ref<Recipe[]> = ref([]);
+    const recipes: Ref<Recipe[] | undefined> = ref([]);
 
     onMounted(async () => {
       recipes.value = await RecipeService.getRecipes();
